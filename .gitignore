@@ -1,0 +1,9 @@
+projects/
+.DS_Store
+.git
+.svn
+.vagrant
+*~
+.env
+.vimrc
+Vagrantfile.local
