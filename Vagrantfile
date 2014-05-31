@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "dev-box"
   config.vm.box_url = "file://C:/Users/Ewerton/Dropbox/earaujoassis/vm-box/vagrant-ubuntu64.box"
   config.vm.hostname = "local.ewerton-araujo.com"
-  config.vm.network "private_network", ip: "192.168.0.77"
+  config.vm.network "private_network", ip: "192.168.66.88"
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = 1024
