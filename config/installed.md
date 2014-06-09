@@ -6,6 +6,8 @@
 * Ruby + Ruby-dev
 * Bundler
 * NodeJs/NPM (Grunt + Karma + Bower + Gulp + Mocha + CoffeeScript)
+* Git
+* Redis
 
 ## Should be installed
 
@@ -16,7 +18,6 @@
 * Rust
 * Java
 * Python 3
-* Redis
 * MySQL
 * Compass
 * Rails
