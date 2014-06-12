@@ -3,8 +3,11 @@
   id: "loyalty-club"
   sock_path: "/home/vagrant/tmp/loyalty-club.sock"
 -
+  id: "earaujoassis"
+  address: "localhost:4567"
+-
   id: "watchman-api"
   sock_path: "/home/vagrant/tmp/watchman-api.sock"
 -
-  id: "earaujoassis"
-  address: "localhost:4567"
+  id: "watchman-app"
+  sock_path: "/home/vagrant/tmp/watchman-app.sock"

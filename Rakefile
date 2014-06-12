@@ -1,7 +1,5 @@
 #!/usr/bin/env rake
 
-require 'dotenv/tasks'
-
 namespace :nginx do
   desc 'Installs the nginx.conf file'
   task :install do
