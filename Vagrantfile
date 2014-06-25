@@ -11,9 +11,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
   config.vm.hostname = "local.ewerton-araujo.com"
   config.vm.network "private_network", ip: "192.168.66.88"
+  config.vm.provision "shell", path: "config/provision.sh"
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = 1536
+    vb.memory = 2048
     vb.cpus = 2
   end
 end

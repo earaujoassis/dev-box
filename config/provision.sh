@@ -7,11 +7,12 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+echo -e "vm.swappiness=0" | sudo tee -a /etc/sysctl.conf
 mkdir -p ~/tmp
 
 sudo apt-get update
 sudo apt-get install -y \
-  curl git-core build-essential zlib1g-dev libreadline-dev libssl-dev libexecinfo htop
+  curl git-core build-essential zlib1g-dev libreadline-dev libssl-dev htop
 
 sudo apt-get install -y nginx
 
@@ -20,7 +21,9 @@ sudo -u postgres psql -c "create user vagrant inherit login superuser"
 sudo -u postgres psql -c "alter user vagrant with password 'vagrant'"
 sudo -u postgres psql -c "create user root inherit login superuser"
 
-echo -ne '\n' | sudo apt-get -y install mysql-server
+#export DEBIAN_FRONTEND=noninteractive
+#sudo apt-get install -y -q mysql-server
+#mysqladmin -u root password vagrant
 
 sudo apt-get install -y scons
 cd ~/tmp
@@ -62,3 +65,5 @@ git checkout v0.10.29
 sudo npm -g install grunt gulp bower mocha coffee-script
 
 rm -rf ~/tmp/*
+sudo apt-get autoremove
+sudo apt-get clean
