@@ -9,7 +9,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
-  config.vm.hostname = "local.ewerton-araujo.com"
+  config.vm.hostname = "local.dearaujoassis.com"
   config.vm.network "private_network", ip: "192.168.66.88"
   config.vm.provision "shell", path: "config/provision.sh"
 

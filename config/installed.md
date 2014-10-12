@@ -3,7 +3,7 @@
 * Git
 * Nginx
 * PostgreSQL
-  * Setup postgres user and add vagrant for the postgres group
+  * Setup postgres user and add `vagrant` for the postgres group
 * MySQL
 * MongoDB
 * Redis

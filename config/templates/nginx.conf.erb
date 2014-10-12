@@ -10,7 +10,7 @@ server {
     listen [::]:80 default_server ipv6only=on;
     root /usr/share/nginx/html;
     index index.html index.htm;
-    server_name local.ewerton-araujo.com;
+    server_name local.dearaujoassis.com;
 
     location / {
         try_files $uri $uri/ =404;
@@ -20,14 +20,14 @@ server {
 <% for project in projects %>
 server {
     listen 80;
-    server_name <%= project["id"] %>.local.ewerton-araujo.com;
+    server_name <%= project["id"] %>.local.dearaujoassis.com;
 
     location / {
         proxy_pass  http://<%= project["id"] %>;
         proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;
         proxy_redirect off;
         proxy_buffering off;
-        proxy_set_header        Host            <%= project["id"] %>.local.ewerton-araujo.com;
+        proxy_set_header        Host            <%= project["id"] %>.local.dearaujoassis.com;
         proxy_set_header        X-Real-IP       $remote_addr;
         proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
     }
