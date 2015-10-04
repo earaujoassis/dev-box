@@ -1,8 +1,6 @@
 # Dev Box
 
-> A collection of Vagrant + Chef configurations for a development box
-
-**WARNING: no longer maintained**
+> A Vagrant + Docker + CLI setup for a development box
 
 ## License
 

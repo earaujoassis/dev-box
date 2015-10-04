@@ -4,19 +4,28 @@
 ROOT_DIR = File.expand_path File.dirname(__FILE__)
 LOCAL_VAGRANTFILE = File.join ROOT_DIR, 'Vagrantfile.local'
 
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
+Vagrant.configure(2) do |config|
+  config.vm.hostname = "dev-box"
+  config.vm.box = "ubuntu/vivid64"
+  config.vm.network "private_network", ip: "192.168.44.88"
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "ubuntu/trusty64"
-  config.vm.hostname = "local.dearaujoassis.com"
-  config.vm.network "private_network", ip: "192.168.66.88"
-  config.vm.provision "shell", path: "config/provision.sh"
-
-  config.vm.provider "virtualbox" do |vb|
-    vb.memory = 2048
-    vb.cpus = 2
+  config.vm.provider :virtualbox do |vb|
+    vb.customize [
+      "modifyvm", :id,
+      "--cpuexecutioncap", "75",
+      "--memory", "768",
+      "--cpus", "2"
+    ]
   end
+
+  config.vm.provision "shell", inline: <<-SHELL
+     sudo apt-get update && sudo apt-get upgrade -y
+     sudo apt-get install -y curl htop zsh
+     sudo apt-get autoremove -y
+     sudo apt-get autoclean -y
+     echo 'LC_ALL="en_US.UTF-8"' >> /etc/environment
+     shutdown -h now
+  SHELL
 end
 
 # Load local Vagrant configuration overrides
