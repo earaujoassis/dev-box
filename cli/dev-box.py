@@ -18,9 +18,11 @@ subparsers = parser.add_subparsers(dest='parent')
 machine = subparsers.add_parser('machine', help='tasks for the Vagrant machine')
 machine_subcommands = machine.add_subparsers(dest='subcommand')
 machine_subcommands.add_parser('console', help='open a bash console inside the machine')
+machine_subcommands.add_parser('halt', help='halt the Vagrant machine')
 machine_subcommands.add_parser('run', help='run a command inside the Vagrant machine') \
     .add_argument('machine-commands', action='store', nargs=argparse.REMAINDER)
 machine_subcommands.add_parser('setup', help='setup the Vagrant machine')
+machine_subcommands.add_parser('start', help='start the Vagrant machine')
 
 
 class DevBoxCLI(object):
