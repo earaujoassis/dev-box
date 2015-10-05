@@ -9,25 +9,26 @@ import os
 
 import tasks
 from tasks import utils
-
-root = os.path.realpath(os.path.join(os.path.realpath(__file__), '../../'))
+from tasks.utils import root
 
 parser = argparse.ArgumentParser(description='DevBox CLI tool and manager')
 subparsers = parser.add_subparsers(dest='parent')
-
-machine = subparsers.add_parser('machine', help='tasks for the Vagrant machine')
-machine_subcommands = machine.add_subparsers(dest='subcommand')
-machine_subcommands.add_parser('console', help='open a bash console inside the machine')
-machine_subcommands.add_parser('halt', help='halt the Vagrant machine')
-machine_subcommands.add_parser('run', help='run a command inside the Vagrant machine') \
-    .add_argument('machine-commands', action='store', nargs=argparse.REMAINDER)
-machine_subcommands.add_parser('setup', help='setup the Vagrant machine')
-machine_subcommands.add_parser('start', help='start the Vagrant machine')
+hook = subparsers.add_parser('hook', help='create a hook to a given directory')
+hook.add_argument('dir', action='store')
+subparsers.add_parser('unhook', help='release any active hook')
+subparsers.add_parser('console', help='open a bash console inside the machine')
+subparsers.add_parser('halt', help='halt the Vagrant machine')
+subparsers.add_parser('reload', help='reload the Vagrant machine')
+subparsers.add_parser('run', help='run a command inside the Vagrant machine') \
+    .add_argument('commands', action='store', nargs=argparse.REMAINDER)
+subparsers.add_parser('setup', help='setup the Vagrant machine')
+subparsers.add_parser('start', help='start the Vagrant machine')
 
 
 class DevBoxCLI(object):
 
-    def __init__(self, namespace = None):
+    def __init__(self, namespace = None, original_cwd = ''):
+        self.original_cwd = original_cwd
         self.namespace = namespace
         self
 
@@ -52,11 +53,13 @@ class DevBoxCLI(object):
             task_function = parent
         else:
             task_function = subcommand
-        if hasattr(namespace, 'machine-commands'):
-            commands = getattr(namespace, 'machine-commands')
+        if hasattr(namespace, 'commands'):
+            commands = getattr(namespace, 'commands')
             return task_function(' '.join(commands))
         if hasattr(namespace, 'argument'):
             return task_function(namespace.argument)
+        if hasattr(namespace, 'dir'):
+            return task_function(namespace.dir, self.original_cwd)
         return task_function()
 
     def get_module_attribute_safely(self, reference, module):
@@ -72,9 +75,10 @@ class DevBoxCLI(object):
 
     @staticmethod
     def apply(argv):
+        original_cwd = os.getcwd()
         os.chdir(root)
         namespace = parser.parse_args(argv[1:])
-        return DevBoxCLI(namespace).action()
+        return DevBoxCLI(namespace, original_cwd).action()
 
 
 if __name__ == '__main__':

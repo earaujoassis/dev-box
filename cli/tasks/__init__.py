@@ -2,4 +2,5 @@
 # Copyright 2015 (c) Ewerton Assis
 #
 
-import machine
+from machine import console, halt, reload, run, setup, start
+from hooker import hook, unhook
