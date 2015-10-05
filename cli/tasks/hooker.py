@@ -7,8 +7,8 @@ import sys
 import datetime
 import json
 
-from utils import root, hook_file_path, vm_id_file_path
-from utils import print_error, print_green, remove_hook_file
+from utils import root, hook_file_path, remove_hook_file, vm_id_file_path
+from utils import print_error, print_green
 from machine import run as vagrant_run
 
 
@@ -26,6 +26,9 @@ def hook(path, caller_cwd):
         hook_path = os.path.realpath(path)
     else:
         hook_path = os.path.realpath(os.path.join(caller_cwd, path))
+    if not os.path.isdir(hook_path):
+        print_error('Error: it is not a directory')
+        return
     dev_box_path = os.path.realpath(root)
     if dev_box_path == hook_path:
         print_error('Error: Inceptions are not allowed here, sorry')
@@ -69,3 +72,13 @@ def unhook():
         print(hook_json)
     else:
         print_error('Error: something went bad! Hook was not properly released. Is there any active hook?')
+
+
+def info():
+    if not os.path.isfile(hook_file_path):
+        print("No active hook")
+        return
+    with open(hook_file_path) as hook_file:
+        hook_hash = json.loads(hook_file.read())
+        hook_json = json.dumps(hook_hash, sort_keys=False, indent=4, separators=(',', ': '))
+        print(hook_json)

@@ -7,7 +7,13 @@ import argparse
 import sys
 import os
 
-import tasks
+try:
+    import tasks
+except ImportError, e:
+    project_root = os.path.realpath(os.path.join(os.path.realpath(__file__), '../../'))
+    sys.path.append(os.path.join(project_root, 'cli'))
+    import tasks
+
 from tasks import utils
 from tasks.utils import root
 
@@ -18,13 +24,16 @@ subparsers.add_parser('start', help='start the Vagrant machine')
 subparsers.add_parser('reload', help='reload the Vagrant machine')
 subparsers.add_parser('halt', help='halt the Vagrant machine')
 subparsers.add_parser('hook', help='create a hook to a given directory') \
-    .add_argument('dir', action='store')
+    .add_argument('path', action='store')
 subparsers.add_parser('unhook', help='release any active hook')
+subparsers.add_parser('info', help='check the hooker\'s current state')
 subparsers.add_parser('console', help='open a bash console inside the machine (from $HOME)')
 subparsers.add_parser('run', help='run a command inside the Vagrant machine (from $HOME)') \
     .add_argument('commands', action='store', nargs=argparse.REMAINDER)
 subparsers.add_parser('stream', help='stream commands inside the Vagrant\'s /hook folder') \
     .add_argument('commands', action='store', nargs=argparse.REMAINDER)
+subparsers.add_parser('cook', help='run a Bash shell recipe inside the machine (from $HOME)') \
+    .add_argument('path', action='store')
 
 
 class DevBoxCLI(object):
@@ -60,8 +69,8 @@ class DevBoxCLI(object):
             return task_function(' '.join(commands))
         if hasattr(namespace, 'argument'):
             return task_function(namespace.argument)
-        if hasattr(namespace, 'dir'):
-            return task_function(namespace.dir, self.original_cwd)
+        if hasattr(namespace, 'path'):
+            return task_function(namespace.path, self.original_cwd)
         return task_function()
 
     def get_module_attribute_safely(self, reference, module):

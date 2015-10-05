@@ -38,3 +38,8 @@ def flush_hook_file():
 
 def remove_hook_file():
     flush_hook_file()
+
+
+def mkdirp(directory):
+    if not os.path.isdir(directory):
+        os.mkdir(directory)
