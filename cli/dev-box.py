@@ -13,16 +13,18 @@ from tasks.utils import root
 
 parser = argparse.ArgumentParser(description='DevBox CLI tool and manager')
 subparsers = parser.add_subparsers(dest='parent')
-hook = subparsers.add_parser('hook', help='create a hook to a given directory')
-hook.add_argument('dir', action='store')
-subparsers.add_parser('unhook', help='release any active hook')
-subparsers.add_parser('console', help='open a bash console inside the machine')
-subparsers.add_parser('halt', help='halt the Vagrant machine')
-subparsers.add_parser('reload', help='reload the Vagrant machine')
-subparsers.add_parser('run', help='run a command inside the Vagrant machine') \
-    .add_argument('commands', action='store', nargs=argparse.REMAINDER)
 subparsers.add_parser('setup', help='setup the Vagrant machine')
 subparsers.add_parser('start', help='start the Vagrant machine')
+subparsers.add_parser('reload', help='reload the Vagrant machine')
+subparsers.add_parser('halt', help='halt the Vagrant machine')
+subparsers.add_parser('hook', help='create a hook to a given directory') \
+    .add_argument('dir', action='store')
+subparsers.add_parser('unhook', help='release any active hook')
+subparsers.add_parser('console', help='open a bash console inside the machine (from $HOME)')
+subparsers.add_parser('run', help='run a command inside the Vagrant machine (from $HOME)') \
+    .add_argument('commands', action='store', nargs=argparse.REMAINDER)
+subparsers.add_parser('stream', help='stream commands inside the Vagrant\'s /hook folder') \
+    .add_argument('commands', action='store', nargs=argparse.REMAINDER)
 
 
 class DevBoxCLI(object):

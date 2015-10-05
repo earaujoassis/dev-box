@@ -6,11 +6,12 @@ import os
 import sys
 import time
 
-from utils import VAGRANT_SSH_CMD_FMT, print_green, print_error, remove_hook_file
+from utils import VAGRANT_SSH_CMD_FMT, print_green, print_error
+from utils import hook_file_path, remove_hook_file
 
 
 def console():
-    run('sudo mkdir -p /hook && cd /hook && /bin/bash')
+    run('/bin/bash')
 
 
 def halt():
@@ -28,7 +29,7 @@ def run(command):
 
 
 def setup():
-    print_green('# Setting up the vagrant machine')
+    print_green('# Setting up the Vagrant machine')
     os.system('vagrant up')
     time.sleep(15)
     os.system('vagrant up')
@@ -39,3 +40,10 @@ def setup():
 
 def start():
     os.system('vagrant up')
+
+
+def stream(command):
+    if not os.path.isfile(hook_file_path):
+        print_error("Error: there's not any active hook")
+        return
+    return run('cd /hook && {0}'.format(command))
