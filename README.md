@@ -1,4 +1,4 @@
-# Dev Box
+# DevBox
 
 > A Vagrant + Docker + CLI setup for a development box
 
@@ -45,7 +45,7 @@ or
 $ devbox stream [commands]
 ```
 
-The first command opens a /bin/bash shell prompt at the Vagrant's `$HOME` folder; the second one runs the [commands]
+The first command opens a `/bin/bash` shell prompt at the Vagrant's `$HOME` folder; the second one runs the [commands]
 as it would be written directly in the shell, from `$HOME` (arguments and options are proxied to the machine through
 the `vagrant ssh -c` command); the last one will stream/run commands from the `/hook` folder.
 
@@ -62,7 +62,7 @@ For any other option, please run `devbox -h`.
 Docker is available by default; you don't have to hook any folder in order to run a container &mdash; if the image is
 available. If you run `$ devbox run docker [commands]` you can build images or create containers as it would be
 available in the host machine (well, likely, the only difference is the use of an IP address different to
-`127.0.0.1|0.0.0.0|localhost`; in this case defaulted to 192.168.44.88 &mdash; you may change that in
+`127.0.0.1|0.0.0.0|localhost`; in this case defaulted to `192.168.44.88` &mdash; you may change that in
 `dev-box/Vagrantfile` or creating a `dev-box/Vagrantfile.local` configuring any additional option to the Vagrant
 machine, including its IP address).
 
