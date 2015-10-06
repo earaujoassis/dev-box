@@ -7,8 +7,8 @@ Ever wanted to have just one Vagrant machine to work across multiple projects? W
 ## Usage
 
 `git clone` this repository to `$HOME/somewhere` in order to create the path as following: `$HOME/somewhere/dev-box`.
-Put the `dev-box/cli/dev-box.py` into your `$PATH`. In my local setup, I created a hard link to the `dev-box.py` and
-made it available in my `$PATH`. From now on I'm assuming you created a hard link to
+Put the `dev-box/cli/dev-box.py` into your `$PATH`. In my local setup, I created a symbolic link to the `dev-box.py` and
+made it available in my `$PATH`. From now on I'm assuming you created a symbolic link to
 `$HOME/somewhere/dev-box/cli/dev-box.py`, named it `devbox` and made it available in your `$PATH`.
 
 Then, setup the Vagrant machine. It will take a time, but it shouldn't take a lot.
