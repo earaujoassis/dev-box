@@ -8,6 +8,15 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = "dev-box"
   config.vm.box = "ubuntu/vivid64"
   config.vm.network "private_network", ip: "192.168.44.88"
+  config.ssh.forward_agent = true
+
+  config.vm.network :forwarded_port, guest: 5000, host: 5000
+  config.vm.network :forwarded_port, guest: 5050, host: 5050
+  config.vm.network :forwarded_port, guest: 8000, host: 8000
+  config.vm.network :forwarded_port, guest: 8080, host: 8080
+  config.vm.network :forwarded_port, guest: 27017, host: 27017 # MongoDB
+  config.vm.network :forwarded_port, guest: 6379, host: 6379   # Redis
+  config.vm.network :forwarded_port, guest: 5432, host: 5432   # Postgres
 
   config.vm.provider :virtualbox do |vb|
     vb.customize [

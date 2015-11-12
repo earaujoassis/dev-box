@@ -66,6 +66,14 @@ available in the host machine (well, likely, the only difference is the use of a
 `dev-box/Vagrantfile` or creating a `dev-box/Vagrantfile.local` configuring any additional option to the Vagrant
 machine, including its IP address).
 
+### Tip
+
+Create an alias for the `docker` installation inside this virtual machine:
+
+```sh
+alias docker="devbox run docker"
+```
+
 ## Well, what about `docker-machine`?
 
 Yes, I know, `docker-machine` provides (almost) the same services and it also has a larger community to keep it really
@@ -84,7 +92,6 @@ for your own safety.
 
 If you have found any bug &#x1f41e; or don't know how to do something or ever wanted a new feature, please create an
 issue in [/issues](//github.com/earaujoassis/dev-box/issues). Thank you!
-
 
 ## License
 
