@@ -74,6 +74,8 @@ Create an alias for the `docker` installation inside this virtual machine:
 alias docker="devbox run docker"
 ```
 
+Now you can use the `docker` command normally, as it would be called from the host machine.
+
 ## Well, what about `docker-machine`?
 
 Yes, I know, `docker-machine` provides (almost) the same services and it also has a larger community to keep it really
