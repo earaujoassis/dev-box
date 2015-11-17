@@ -17,6 +17,7 @@ Vagrant.configure(2) do |config|
   config.vm.network :forwarded_port, guest: 27017, host: 27017 # MongoDB
   config.vm.network :forwarded_port, guest: 6379, host: 6379   # Redis
   config.vm.network :forwarded_port, guest: 5432, host: 5432   # Postgres
+  config.vm.network :forwarded_port, guest: 5672, host: 5672   # RabbitMQ
 
   config.vm.provider :virtualbox do |vb|
     vb.customize [
