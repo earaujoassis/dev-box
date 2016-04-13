@@ -45,7 +45,7 @@ or
 $ devbox stream [commands]
 ```
 
-The first command opens a `/bin/bash` shell prompt at the Vagrant's `$HOME` folder; the second one runs the [commands]
+The first command opens a `/bin/zsh` shell prompt at the Vagrant's `$HOME` folder; the second one runs the [commands]
 as it would be written directly in the shell, from `$HOME` (arguments and options are proxied to the machine through
 the `vagrant ssh -c` command); the last one will stream/run commands from the `/hook` folder.
 
