@@ -33,14 +33,7 @@ Vagrant.configure(2) do |config|
     ]
   end
 
-  config.vm.provision "shell", inline: <<-SHELL
-     sudo apt-get update && sudo apt-get upgrade -y
-     sudo apt-get install -y curl htop zsh
-     sudo apt-get autoremove -y
-     sudo apt-get autoclean -y
-     echo 'LC_ALL="en_US.UTF-8"' >> /etc/environment
-     shutdown -h now
-  SHELL
+  config.vm.provision "shell", path: "cli/provision.sh", privileged: false
 end
 
 # Load local Vagrant configuration overrides

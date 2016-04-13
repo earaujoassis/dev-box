@@ -27,7 +27,7 @@ subparsers.add_parser('hook', help='create a hook to a given directory') \
     .add_argument('path', action='store')
 subparsers.add_parser('unhook', help='release any active hook')
 subparsers.add_parser('info', help='check the hooker\'s current state')
-subparsers.add_parser('console', help='open a bash console inside the machine (from $HOME)')
+subparsers.add_parser('console', help='open a zsh console inside the machine (from $HOME)')
 subparsers.add_parser('run', help='run a command inside the Vagrant machine (from $HOME)') \
     .add_argument('commands', action='store', nargs=argparse.REMAINDER)
 subparsers.add_parser('stream', help='stream commands inside the Vagrant\'s /hook folder') \

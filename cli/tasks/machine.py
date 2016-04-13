@@ -12,7 +12,7 @@ from utils import hook_file_path, remove_hook_file
 
 
 def console():
-    run('/bin/bash')
+    run('/bin/zsh')
 
 
 def cook(path, caller_cwd):
