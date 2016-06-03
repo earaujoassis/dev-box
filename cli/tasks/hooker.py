@@ -34,11 +34,11 @@ def hook(path, caller_cwd):
         print_error('Error: Inceptions are not allowed here, sorry')
         return
     rc = 0
-    rc += os.system("VBoxManage sharedfolder add {0} --name hook --hostpath {1} --transient".format(vm_id, hook_path))
-    rc += os.system("VBoxManage setextradata {0} VBoxInternal2/SharedFoldersEnableSymlinksCreate/hook 1".format(vm_id))
-    rc += vagrant_run('sudo mkdir -p /hook')
-    rc += vagrant_run('sudo chown -R vagrant:vagrant /hook')
-    rc += vagrant_run('sudo mount -t vboxsf -o uid=1000,gid=1000 hook /hook')
+    rc += os.system('VBoxManage sharedfolder add {0} --name hook --hostpath {1} --transient'.format(vm_id, hook_path))
+    rc += os.system('VBoxManage setextradata {0} VBoxInternal2/SharedFoldersEnableSymlinksCreate/hook 1'.format(vm_id))
+    rc += vagrant_run('sudo mkdir -p /home/vagrant/hook')
+    rc += vagrant_run('sudo chown -R vagrant:vagrant /home/vagrant/hook')
+    rc += vagrant_run('sudo mount -t vboxsf -o uid=1000,gid=1000 hook /home/vagrant/hook')
     if rc == 0:
         hook_hash = {}
         hook_hash['path'] = hook_path
@@ -63,8 +63,8 @@ def unhook():
             hook_hash = json.loads(hook_file.read())
             vm_id = hook_hash['vm_id']
     rc = 0
-    rc += vagrant_run('sudo umount -a -t vboxsf /hook')
-    rc += os.system("VBoxManage sharedfolder remove {0} --name hook --transient".format(vm_id))
+    rc += vagrant_run('sudo umount -a -t vboxsf /home/vagrant/hook')
+    rc += os.system('VBoxManage sharedfolder remove {0} --name hook --transient'.format(vm_id))
     if rc == 0:
         remove_hook_file()
         hook_hash['status'] = 'destroyed'
@@ -76,7 +76,7 @@ def unhook():
 
 def info():
     if not os.path.isfile(hook_file_path):
-        print("No active hook")
+        print('No active hook')
         return
     with open(hook_file_path) as hook_file:
         hook_hash = json.loads(hook_file.read())

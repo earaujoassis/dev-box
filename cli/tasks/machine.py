@@ -83,4 +83,4 @@ def stream(command):
     if not os.path.isfile(hook_file_path):
         print_error("Error: there's not any active hook")
         return
-    return run('cd /hook && {0}'.format(command))
+    return run('cd /home/vagrant/hook && {0}'.format(command))

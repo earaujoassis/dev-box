@@ -5,7 +5,7 @@
 import sys
 import os
 
-VAGRANT_SSH_CMD_FMT = "vagrant ssh -c \"{0}\" -- -q"
+VAGRANT_SSH_CMD_FMT = 'vagrant ssh -c \"{0}\" -- -q'
 root = os.path.realpath(os.path.join(os.path.realpath(__file__), '../../../'))
 vm_id_file_path = os.path.realpath(os.path.join(root, '.vagrant/machines/default/virtualbox/id'))
 hook_file_path = os.path.realpath(os.path.join(root, '.hook'))
