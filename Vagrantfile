@@ -10,17 +10,14 @@ Vagrant.configure(2) do |config|
   config.vm.network "private_network", ip: "192.168.44.88"
   config.ssh.forward_agent = true
 
-  config.vm.network :forwarded_port, guest: 27017, host: 27017  # MongoDB
-  config.vm.network :forwarded_port, guest: 6379,  host: 6379   # Redis
-  config.vm.network :forwarded_port, guest: 5432,  host: 5432   # Postgres
-  config.vm.network :forwarded_port, guest: 5672,  host: 5672   # RabbitMQ
-
   # Applications binds
 
-  config.vm.network :forwarded_port, guest: 33507, host: 33507
-  config.vm.network :forwarded_port, guest: 5000,  host: 5000
-  config.vm.network :forwarded_port, guest: 7654,  host: 7654
-  config.vm.network :forwarded_port, guest: 8000,  host: 8000
+  config.vm.network :forwarded_port, guest: 33507, host: 33507, auto_correct: true
+  config.vm.network :forwarded_port, guest: 5000,  host: 5000,  auto_correct: true
+  config.vm.network :forwarded_port, guest: 5050,  host: 5050,  auto_correct: true
+  config.vm.network :forwarded_port, guest: 7654,  host: 7654,  auto_correct: true
+  config.vm.network :forwarded_port, guest: 8000,  host: 8000,  auto_correct: true
+  config.vm.network :forwarded_port, guest: 8080,  host: 8080,  auto_correct: true
 
   config.vm.provider :virtualbox do |vb|
     vb.customize [
