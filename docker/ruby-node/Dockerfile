@@ -1,7 +1,7 @@
 FROM centos:centos6
 MAINTAINER Ewerton Assis <earaujoassis@gmail.com>
 
-LABEL Description="Image used for web-based applications in DevBox" Version="0.1"
+LABEL Description="Image used for web-based applications in Ruby + Node.js" Version="0.1"
 ENV DEVBOX_DOCKER true
 RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 RUN yum install -y python python-argparse npm wget tar libxslt-devel libxml2-devel postgresql-devel openssl-devel gcc gcc-c++ automake autoconf make curl curl-devel httpd-devel
