@@ -6,12 +6,23 @@ import os
 import sys
 import time
 import shutil
+import json
 
 from utils import root, VAGRANT_SSH_CMD_FMT, print_green, print_error, mkdirp
 from utils import hook_file_path, remove_hook_file
 
 
-def console():
+def console(caller_cwd):
+    hook_hash = None
+    if os.path.isfile(hook_file_path):
+        with open(hook_file_path) as hook_file:
+            hook_hash = json.loads(hook_file.read())
+    if hook_hash is not None:
+        hooked_path = os.path.join(hook_hash['path'], '')
+        if caller_cwd.startswith(hooked_path):
+            cd_path = caller_cwd.replace(hooked_path, '')
+            run('cd hook/{0} && /bin/zsh'.format(cd_path))
+            return
     run('/bin/zsh')
 
 

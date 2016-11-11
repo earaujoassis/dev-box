@@ -71,7 +71,10 @@ class DevBoxCLI(object):
             return task_function(namespace.argument)
         if hasattr(namespace, 'path'):
             return task_function(namespace.path, self.original_cwd)
-        return task_function()
+        try:
+            return task_function(self.original_cwd)
+        except TypeError as e:
+            return task_function()
 
     def get_module_attribute_safely(self, reference, module):
         namespace = self.namespace
