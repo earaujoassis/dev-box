@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 sudo apt-get update && sudo apt-get upgrade -y
-sudo apt-get install -y build-essential git-core curl htop zsh python-dev
+sudo apt-get install -y build-essential git-core curl htop zsh python-dev zlib1g-dev libssl-dev
 sudo touch /etc/environment
 touch $HOME/.profile
 echo 'LC_ALL="en_US.UTF-8"' | sudo tee -a /etc/environment
@@ -20,8 +20,9 @@ wget https://bootstrap.pypa.io/get-pip.py
 sudo python get-pip.py
 pip install --user -I pip setuptools virtualenv virtualenvwrapper
 rm -f get-pip.py
+echo 'export WORKON_HOME=$HOME/.virtualenvs' >> $HOME/.profile
 grep -q -F 'dsmgr-localbin' $HOME/.profile || echo 'export PATH="$HOME/bin:$HOME/.local/bin:$PATH" # dsmgr-localbin' >> $HOME/.profile
-grep -q -F 'dsmgr-venvwrapper' $HOME/.profile || echo '. $HOME/.local/bin/virtualenvwrapper.sh # dsmgr-venvwrapper' >> $HOME/.profile
+grep -q -F 'dsmgr-venvwrapper' $HOME/.profile || echo 'source $HOME/.local/bin/virtualenvwrapper.sh # dsmgr-venvwrapper' >> $HOME/.profile
 source /home/vagrant/.zshrc
 
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
@@ -46,9 +47,10 @@ mkdir -p $HOME/.local
 cd $HOME
 wget https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tar.xz
 tar -xf $HOME/Python-2.7.8.tar.xz
-cd $HOME/Python-2.7.8 && ./configure --prefix=$HOME/.local && make && make install
+cd $HOME/Python-2.7.8 && ./configure --with-zlib --prefix=$HOME/.local && make && make install
 cd $HOME && rm -rf $HOME/Python-2.7.8
 rm -f $HOME/Python-2.7.8.tar.xz
+echo 'source ~/.profile' >> $HOME/.zshrc
 
 sudo apt-get autoremove -y
 sudo apt-get autoclean -y
